@@ -1,0 +1,26 @@
+<script>
+     fetch('/highscore').then(function(games){
+        games.json().then(function(thegames){
+            console.log(thegames);
+            let table = document.createElement("table");
+            thegames.sort(function(a,b){
+                return b.highscore - a.highscore;
+            });
+            for(let game of thegames){
+                console.log(game);
+                let row = document.createElement("tr");
+                let cell = document.createElement("td");
+                let text = document.createTextNode(game.username);
+                cell.appendChild(text);
+                row.appendChild(cell);
+                cell = document.createElement("td");
+                text = document.createTextNode(game.highscore);
+                cell.appendChild(text);
+                row.appendChild(cell);
+                table.appendChild(row);
+            }
+            let body = document.getElementsByTagName("body")[0];
+            body.appendChild(table);
+        });           
+     });
+    </script>
